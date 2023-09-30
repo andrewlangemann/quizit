@@ -35,6 +35,8 @@ QuizItReview = {
                     valueStr;
                 if (Array.isArray(value)) {
                     valueStr = value.join(", ");
+                } else if (activeQuiz.soundField == field.name) {
+                    valueStr = `<a class="play-link" data-audio-url="${value}">Play</a>`;
                 } else {
                     valueStr = value;
                 }
@@ -49,6 +51,10 @@ QuizItReview = {
             var style = $("<style>.hebrew {font-family: 'guttman_yad-brush'; }</style>");
             $('html > head').append(style);
         }
+
+        $('.play-link').on('click', (link) => {
+            new Audio(link.target.attributes['data-audio-url'].nodeValue).play();
+        })
     }
 
 };
