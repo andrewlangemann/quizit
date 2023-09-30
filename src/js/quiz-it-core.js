@@ -29,6 +29,7 @@ QuizIt = {
 
     _loadNextProblem: function (wasRight, removeCurrent) {
         if (wasRight) {
+            this._playSound();
             this.problems.shift();
             if (!removeCurrent) {
                 this.problems.push(this.currentProblem);
@@ -43,6 +44,14 @@ QuizIt = {
         this.currentProblem = this.problems[0];
 
         this.currentIsWrong = false;
+    },
+
+    _playSound: function () {
+        if (!this.activeQuiz.soundField) return;
+        var sound = this.currentProblem[this.activeQuiz.soundField];
+        if (sound) {
+            new Audio(sound).play();
+        }
     },
 
     _setup: function () {
@@ -160,7 +169,7 @@ QuizIt = {
 };
 
 
-String.prototype.format = function() {
+String.prototype.format = function () {
     var s = this;
     for (var i = 0; i < arguments.length; i++) {
         var reg = new RegExp("\\{" + i + "\\}", "gm");
