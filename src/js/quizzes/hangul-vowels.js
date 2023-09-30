@@ -5,6 +5,7 @@ var hangulQuiz = {
 
     promptField: 'letter',
     answerField: 'transliteration',
+    soundField: 'sound',
 
     reviewFields: [
         {
@@ -43,7 +44,9 @@ var hangulQuiz = {
 };
 
 $.each(hangulQuiz.problems, function (index, problem) {
-    problem.letter = '<span class="hebrew">{0}</span>'.format(problem.letter);
+    if (!problem.sound)
+        problem.sound = `https://90daykoreanaudiobytes.s3-us-west-1.amazonaws.com/audio-${problem.transliteration}.mp3`
+    problem.letter = `<span class="hebrew">${problem.letter}</span>`;
 })
 
 QuizIt.addQuiz(hangulQuiz);
